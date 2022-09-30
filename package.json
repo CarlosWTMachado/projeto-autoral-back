@@ -4,6 +4,7 @@
   "description": "a application where the user can find people that want to walk a pet",
   "main": "src/server.js",
   "scripts": {
+	"dev": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Carlos W T Machado",
