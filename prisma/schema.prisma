@@ -25,7 +25,7 @@ model User {
 model Address {
     id         Int    @id(map: "addresses_pk") @default(autoincrement())
     number     Int
-    complement String
+    complement String?
     cepId      Int
     users      User[]
     cep        Cep    @relation(fields: [cepId], references: [id])
