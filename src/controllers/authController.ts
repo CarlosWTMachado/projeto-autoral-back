@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-import error from '../errors/error';
+import authService from '../services/authService';
 
 export async function signUp(req: Request, res: Response) {
+	const body = req.body;
+	await authService.signUp(body);
 	return res.sendStatus(200);
 }
 
