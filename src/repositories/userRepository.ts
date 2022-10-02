@@ -7,6 +7,15 @@ export async function create(user: CreateUser) {
 	});
 }
 
+export async function findByEmail(email: string) {
+	return await prisma.user.findUnique({
+		where: {
+			email
+		}
+	});
+}
+
 export default {
 	create,
+	findByEmail,
 }

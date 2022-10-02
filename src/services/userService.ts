@@ -6,6 +6,11 @@ export async function create(user: CreateUser) {
 	return await userRepository.create(user);
 }
 
+export async function findByEmail(email: string) {
+	return await userRepository.findByEmail(email);
+}
+
 export default {
 	create,
+	findByEmail,
 }
