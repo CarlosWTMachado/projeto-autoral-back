@@ -5,6 +5,7 @@ import standardizeCep from "../utils/standardizeCep";
 import cepService from "./cepService";
 import addressService from "./addressService";
 import userService from "./userService";
+import phoneService from "./phoneService";
 
 export async function signUp(data: signUpInterface) {
 	const cepNumber = standardizeCep(data.address.cep);
@@ -21,8 +22,14 @@ export async function signUp(data: signUpInterface) {
 		fullName: data.fullName,
 		addressId
 	};
-	const registredUser = await userService.create(user);
-	console.log(registredUser)
+	const { id: userId } = await userService.create(user);
+	for (let value of data.phones) {
+		const phone = {
+			number: standardizePhone(value),
+			userId
+		};
+		await phoneService.create(phone)
+	}
 	return;
 }
 
