@@ -9,7 +9,7 @@ const signUpSchema = joi.object({
 			'string.pattern.base': '"address.cep" must be a valid CEP'
 		}),
 		'number': joi.number().required(),
-		'compĺement': joi.string().allow(null, '')
+		'complement': joi.string().allow(''),
 	}).required(),
 	'phones': joi.array().min(1).items(
 		joi.string().pattern(/^(\([0-9]{2}\)|[0-9]{2}) ?9[0-9]{4}\-?[0-9]{4}$/).messages({

@@ -11,7 +11,7 @@ export async function findByNumber(cep: number) {
 export async function create(cep: number) {
 	return await prisma.cep.create({
 		data: { number: cep }
-	})
+	});
 }
 
 export default {

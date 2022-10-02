@@ -6,4 +6,4 @@ export interface addressInterface {
 	complement?: string
 }
 
-export type CreateUser = Omit<Address, 'id'>;
+export type CreateAddress = Omit<Address, 'id'>;
