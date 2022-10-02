@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "pretest": "dotenv -e .env.test prisma migrate dev",
-    "test": "dotenv -e .env.test jest --no-cache"
+	"test": "dotenv -e .env.test jest --no-cache",
+	"test:unit": "dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/units"
   },
   "author": "Carlos W T Machado",
   "license": "ISC",
