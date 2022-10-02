@@ -16,7 +16,7 @@ model User {
     password  String
     fullName  String
     addressId Int
-    address   Address @relation(fields: [addressId], references: [id])
+    address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
     phones     Phone[]
 
     @@map("users")
@@ -28,7 +28,7 @@ model Address {
     complement String?
     cepId      Int
     users      User[]
-    cep        Cep    @relation(fields: [cepId], references: [id])
+    cep        Cep    @relation(fields: [cepId], references: [id], onDelete: Cascade)
 
     @@map("addresses")
 }
@@ -45,7 +45,7 @@ model Phone {
     id     Int    @id(map: "phones_pk") @default(autoincrement())
     number String @unique
     userId Int
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@map("phones")
 }
