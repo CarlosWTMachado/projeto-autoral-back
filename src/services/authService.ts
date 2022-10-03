@@ -1,8 +1,11 @@
 import error from "../errors/error";
 import { signUpInterface } from "../types/signUpInterface";
+import { SignInUser } from "../types/userInterface";
 import standardizePhone from "../utils/standardizePhone";
 import standardizeCep from "../utils/standardizeCep";
 import encryptPassword from "../utils/encryptPassword";
+import validatePassword from "../utils/validatePassword";
+import generateToken from "../utils/generateToken";
 import cepService from "./cepService";
 import addressService from "./addressService";
 import userService from "./userService";
@@ -42,6 +45,23 @@ export async function signUp(data: signUpInterface) {
 	return;
 }
 
+export async function signIn(data: SignInUser) {
+	// verify if email is alredy registred
+	const existentUser = await userService.findByEmail(data.email);
+	if (existentUser === null) throw error.notFoundError('Email and/or Password invalid');
+	const isValid: boolean = validatePassword(data.password, existentUser.password);
+	if (!isValid) throw error.notFoundError('Email and/or Password invalid');
+
+	const user = {
+		id: existentUser.id,
+		email: existentUser.email,
+		fullName: existentUser.fullName
+	};
+	const token = generateToken(user);
+	return token;
+}
+
 export default {
 	signUp,
+	signIn,
 }
