@@ -4,12 +4,16 @@
   "description": "a application where the user can find people that want to walk a pet",
   "main": "src/server.js",
   "scripts": {
-	"dev": "nodemon src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.ts",
+    "pretest": "dotenv -e .env.test prisma migrate dev",
+	"test": "dotenv -e .env.test jest --no-cache",
+	"test:unit": "dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/units"
   },
   "author": "Carlos W T Machado",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.4.0",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
@@ -17,12 +21,16 @@
     "joi": "^17.6.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.1.1",
     "@types/joi": "^17.2.3",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "dotenv-cli": "^6.0.0",
     "eslint": "^8.24.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -31,6 +39,7 @@
     "jest": "^29.1.2",
     "nodemon": "^2.0.20",
     "prisma": "^4.4.0",
+    "supertest": "^6.2.4",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"

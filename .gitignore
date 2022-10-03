@@ -1,5 +1,7 @@
 .env
+.env.test
 node_modules
 .eslintrc.json
 docker-compose.yml
 Dockerfile
+coverage

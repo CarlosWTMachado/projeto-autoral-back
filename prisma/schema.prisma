@@ -2,10 +2,50 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        Int     @id(map: "users_pk") @default(autoincrement())
+    email     String  @unique
+    password  String
+    fullName  String
+    addressId Int
+    address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+    phones     Phone[]
+
+    @@map("users")
+}
+
+model Address {
+    id         Int    @id(map: "addresses_pk") @default(autoincrement())
+    number     Int
+    complement String?
+    cepId      Int
+    users      User[]
+    cep        Cep    @relation(fields: [cepId], references: [id], onDelete: Cascade)
+
+    @@map("addresses")
+}
+
+model Cep {
+    id        Int       @id(map: "ceps_pk") @default(autoincrement())
+    number    Int       @unique
+    addresses Address[]
+
+    @@map("ceps")
+}
+
+model Phone {
+    id     Int    @id(map: "phones_pk") @default(autoincrement())
+    number String @unique
+    userId Int
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("phones")
 }

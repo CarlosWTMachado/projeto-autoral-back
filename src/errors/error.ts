@@ -49,8 +49,8 @@ export function conflictError(message: string = '') {
 	return new Error('Conflict', message);
 }
 
-export function internalError() {
-	return new Error('InternalError', 'Internal Error');
+export function internalError(message: string = 'Internal Error') {
+	return new Error('InternalError', message);
 }
 
 export function errorTypeToStatusCode(type: string): number {
@@ -61,7 +61,7 @@ export function errorTypeToStatusCode(type: string): number {
 		case 'NotAcceptable': return 406;
 		case 'Conflict': return 409;
 		case 'InternalError': return 500;
-		default: throw internalError();
+		default: return 0;
 	}
 }
 
