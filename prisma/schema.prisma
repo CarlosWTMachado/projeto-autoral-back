@@ -17,18 +17,19 @@ model User {
     fullName  String
     addressId Int
     address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
-    phones     Phone[]
+    phones    Phone[]
+    pets      Pet[]
 
     @@map("users")
 }
 
 model Address {
-    id         Int    @id(map: "addresses_pk") @default(autoincrement())
+    id         Int     @id(map: "addresses_pk") @default(autoincrement())
     number     Int
     complement String?
     cepId      Int
     users      User[]
-    cep        Cep    @relation(fields: [cepId], references: [id], onDelete: Cascade)
+    cep        Cep     @relation(fields: [cepId], references: [id], onDelete: Cascade)
 
     @@map("addresses")
 }
@@ -48,4 +49,15 @@ model Phone {
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@map("phones")
+}
+
+model Pet {
+    id         Int     @id(map: "pets_pk") @default(autoincrement())
+    name       String
+    picture    String?
+    vaccinated Boolean
+    OwnerId    Int
+    owner      User    @relation(fields: [OwnerId], references: [id], onDelete: Cascade)
+
+    @@map("pets")
 }
