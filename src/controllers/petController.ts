@@ -23,8 +23,17 @@ export async function getById(req: Request, res: Response) {
 	return res.status(200).send(pet);
 }
 
+export async function update(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const body: petDataType = req.body;
+	const { id } = req.params;
+	await petService.update(body, tokenData.id, Number(id));
+	return res.sendStatus(201);
+}
+
 export default {
 	register,
 	getAll,
 	getById,
+	update,
 }

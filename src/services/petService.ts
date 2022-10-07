@@ -21,8 +21,17 @@ export async function getById(ownerId: number, petId: number) {
 	return pet;
 }
 
+export async function update(body: petDataType, ownerId: number, petId: number) {
+	const pet = await petRepository.findById(ownerId, petId);
+	if (pet === null) throw error.notFoundError('Pet não encontrado');
+
+	await petRepository.update({ ...body, ownerId }, petId);
+	return;
+}
+
 export default {
 	create,
 	getAll,
 	getById,
+	update,
 }

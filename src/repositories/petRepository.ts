@@ -29,9 +29,17 @@ export async function findById(ownerId: number, id: number) {
 	});
 }
 
+export async function update(pet: createPetType, id: number) {
+	return await prisma.pet.update({
+		where: { id },
+		data: pet
+	})
+}
+
 export default {
 	findByOwnerIdAndName,
 	create,
 	findAll,
 	findById,
+	update,
 }
