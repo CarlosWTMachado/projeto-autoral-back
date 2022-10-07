@@ -10,6 +10,13 @@ export async function register(req: Request, res: Response) {
 	return res.sendStatus(201);
 }
 
+export async function getAll(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const pets = await petService.getAll(tokenData);
+	return res.status(200).send(pets);
+}
+
 export default {
 	register,
+	getAll,
 }

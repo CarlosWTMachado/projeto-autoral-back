@@ -15,7 +15,14 @@ export async function create(pet: createPetType) {
 	});
 }
 
+export async function findAll(ownerId: number) {
+	return await prisma.pet.findMany({
+		where: { ownerId }
+	});
+}
+
 export default {
 	findByOwnerIdAndName,
 	create,
+	findAll,
 }

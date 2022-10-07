@@ -10,7 +10,12 @@ export async function create(body: petDataType, tokenData: tokenDataInterface) {
 	return;
 }
 
+export async function getAll(tokenData: tokenDataInterface) {
+	const pets = await petRepository.findAll(tokenData.id);
+	return pets;
+}
 
 export default {
 	create,
+	getAll,
 }
