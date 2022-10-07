@@ -33,7 +33,13 @@ export async function update(pet: createPetType, id: number) {
 	return await prisma.pet.update({
 		where: { id },
 		data: pet
-	})
+	});
+}
+
+export async function deleteById(id: number) {
+	return await prisma.pet.delete({
+		where: { id }
+	});
 }
 
 export default {
@@ -42,4 +48,5 @@ export default {
 	findAll,
 	findById,
 	update,
+	deleteById,
 }

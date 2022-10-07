@@ -10,6 +10,6 @@ petRouter.post('/pet', validateToken, schemaValidate(petSchema), petController.r
 petRouter.get('/pets', validateToken, petController.getAll);
 petRouter.get('/pet/:id', validateToken, petController.getById);
 petRouter.put('/pet/:id', validateToken, schemaValidate(petSchema), petController.update);
-// petRouter.delete('/pet');
+petRouter.delete('/pet/:id', validateToken, petController.delete);
 
 export default petRouter;

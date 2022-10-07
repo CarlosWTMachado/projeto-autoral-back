@@ -1,6 +1,5 @@
 import error from "../errors/error";
 import petRepository from "../repositories/petRepository";
-import { tokenDataInterface } from "../types/tokenDataInterface";
 import { petDataType } from "../types/petInterface";
 
 export async function create(body: petDataType, ownerId: number) {
@@ -29,9 +28,18 @@ export async function update(body: petDataType, ownerId: number, petId: number) 
 	return;
 }
 
+export async function deleteById(ownerId: number, petId: number) {
+	const pet = await petRepository.findById(ownerId, petId);
+	if (pet === null) throw error.notFoundError('Pet não encontrado');
+
+	await petRepository.deleteById(petId);
+	return;
+}
+
 export default {
 	create,
 	getAll,
 	getById,
-	update,
+	update, 
+	deleteById,
 }

@@ -28,7 +28,14 @@ export async function update(req: Request, res: Response) {
 	const body: petDataType = req.body;
 	const { id } = req.params;
 	await petService.update(body, tokenData.id, Number(id));
-	return res.sendStatus(201);
+	return res.sendStatus(200);
+}
+
+export async function deleteById(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const { id } = req.params;
+	const pets = await petService.deleteById(tokenData.id, Number(id));
+	return res.sendStatus(200);
 }
 
 export default {
@@ -36,4 +43,5 @@ export default {
 	getAll,
 	getById,
 	update,
+	delete: deleteById,
 }
