@@ -8,6 +8,7 @@ const petRouter = Router();
 
 petRouter.post('/pet', validateToken, schemaValidate(petSchema), petController.register);
 petRouter.get('/pets', validateToken, petController.getAll);
+petRouter.get('/pet/:id', validateToken, petController.getById);
 // petRouter.put('/pet');
 // petRouter.delete('/pet');
 

@@ -21,8 +21,17 @@ export async function findAll(ownerId: number) {
 	});
 }
 
+export async function findById(ownerId: number, id: number) {
+	return await prisma.pet.findUnique({
+		where: {
+			OwnerId_id: { ownerId, id }
+		}
+	});
+}
+
 export default {
 	findByOwnerIdAndName,
 	create,
 	findAll,
+	findById,
 }
