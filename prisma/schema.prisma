@@ -56,8 +56,9 @@ model Pet {
     name       String
     picture    String?
     vaccinated Boolean
-    OwnerId    Int
-    owner      User    @relation(fields: [OwnerId], references: [id], onDelete: Cascade)
+    ownerId    Int
+    owner      User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
+	@@unique([ownerId, name], name: "OwnerId_name")
     @@map("pets")
 }
