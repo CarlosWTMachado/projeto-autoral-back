@@ -60,5 +60,6 @@ model Pet {
     owner      User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
 	@@unique([ownerId, name], name: "OwnerId_name")
+	@@unique([ownerId, id], name: "OwnerId_id")
     @@map("pets")
 }
