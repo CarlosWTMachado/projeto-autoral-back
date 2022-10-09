@@ -10,6 +10,13 @@ export async function create(body: walkerDataType, userId: number) {
 	return;
 }
 
+export async function get(id: number) {
+	const walkerFound = await walkerRepository.findById(id);
+	if (walkerFound === null) throw error.notFoundError('Walker not found');
+	return walkerFound;
+}
+
 export default {
 	create,
+	get,
 }

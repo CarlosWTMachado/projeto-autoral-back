@@ -7,6 +7,12 @@ export async function findByUserId(userId: number) {
 	});
 }
 
+export async function findById(id: number) {
+	return await prisma.walker.findUnique({
+		where: { id }
+	});
+}
+
 export async function create(walkerData: createWalkerType) {
 	return await prisma.walker.create({
 		data: walkerData
@@ -15,5 +21,6 @@ export async function create(walkerData: createWalkerType) {
 
 export default {
 	findByUserId,
+	findById,
 	create,
 }

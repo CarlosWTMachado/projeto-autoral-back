@@ -7,7 +7,7 @@ import validateToken from '../middlewares/validateToken';
 const walkerRouter = Router();
 
 walkerRouter.post('/walker/register', validateToken, schemaValidate(walkerSchema), walkerController.register);
-// petRouter.get('/pets', validateToken, petController.getAll);
+walkerRouter.get('/walker/:id', validateToken, walkerController.get);
 // petRouter.get('/pet/:id', validateToken, petController.getById);
 // petRouter.put('/pet/:id', validateToken, schemaValidate(petSchema), petController.update);
 // petRouter.delete('/pet/:id', validateToken, petController.delete);

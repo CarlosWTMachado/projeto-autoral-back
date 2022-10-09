@@ -10,6 +10,13 @@ export async function register(req: Request, res: Response) {
 	return res.sendStatus(201);
 }
 
+export async function get(req: Request, res: Response) {
+	const { id } = req.params;
+	const walkerData = await walkerService.get(Number(id));
+	return res.status(200).send(walkerData);
+}
+
 export default {
 	register,
+	get,
 }
