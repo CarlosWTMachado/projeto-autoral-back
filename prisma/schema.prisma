@@ -19,6 +19,7 @@ model User {
     address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
     phones    Phone[]
     pets      Pet[]
+    walker      Walker[]
 
     @@map("users")
 }
@@ -62,4 +63,14 @@ model Pet {
 	@@unique([ownerId, name], name: "OwnerId_name")
 	@@unique([ownerId, id], name: "OwnerId_id")
     @@map("pets")
+}
+
+model Walker {
+    id         Int     @id(map: "walkers_pk") @default(autoincrement())
+    cpf       String @unique
+    picture    String
+    userId    Int @unique
+    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("walkers")
 }
