@@ -7,7 +7,5 @@ export async function getAllAvailable() {
 }
 
 export default {
-	create,
-	findByEmail,
-	get,
+	getAllAvailable
 }
