@@ -9,7 +9,19 @@ export async function findByUserId(userId: number) {
 
 export async function findById(id: number) {
 	return await prisma.walker.findUnique({
-		where: { id }
+		where: { id },
+		select: {
+			id: true,
+			cpf: true,
+			picture: true,
+			user: {
+				select: {
+					email: true,
+					fullName: true,
+					phones: true
+				}
+			}
+		}
 	});
 }
 
