@@ -11,14 +11,15 @@ datasource db {
 }
 
 model User {
-    id        Int     @id(map: "users_pk") @default(autoincrement())
-    email     String  @unique
+    id        Int      @id(map: "users_pk") @default(autoincrement())
+    email     String   @unique
     password  String
     fullName  String
     addressId Int
-    address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+    address   Address  @relation(fields: [addressId], references: [id], onDelete: Cascade)
     phones    Phone[]
     pets      Pet[]
+    walker    Walker[]
 
     @@map("users")
 }
@@ -52,14 +53,46 @@ model Phone {
 }
 
 model Pet {
-    id         Int     @id(map: "pets_pk") @default(autoincrement())
-    name       String
-    picture    String?
-    vaccinated Boolean
-    ownerId    Int
-    owner      User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    id            Int             @id(map: "pets_pk") @default(autoincrement())
+    name          String
+    picture       String?
+    vaccinated    Boolean
+    ownerId       Int
+    owner         User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    availableWalk AvailableWalk[]
 
-	@@unique([ownerId, name], name: "OwnerId_name")
-	@@unique([ownerId, id], name: "OwnerId_id")
+    @@unique([ownerId, name], name: "OwnerId_name")
+    @@unique([ownerId, id], name: "OwnerId_id")
     @@map("pets")
+}
+
+model Walker {
+    id          Int           @id(map: "walkers_pk") @default(autoincrement())
+    cpf         String        @unique
+    picture     String
+    userId      Int           @unique
+    user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    OnGoingWalk OnGoingWalk[]
+
+    @@map("walkers")
+}
+
+model AvailableWalk {
+    id          Int          @id(map: "availableWalks_pk") @default(autoincrement())
+    completed   Boolean      @default(false)
+    petId       Int          @unique
+    pet         Pet          @relation(fields: [petId], references: [id], onDelete: Cascade)
+    OnGoingWalk OnGoingWalk[]
+
+    @@map("availableWalks")
+}
+
+model OnGoingWalk {
+    id              Int           @id(map: "onGoingWalks_pk") @default(autoincrement())
+    walkerId        Int
+    availableWalkId Int           @unique
+    availableWalk   AvailableWalk @relation(fields: [availableWalkId], references: [id], onDelete: Cascade)
+    walker          Walker        @relation(fields: [walkerId], references: [id], onDelete: Cascade)
+
+    @@map("onGoingWalks")
 }

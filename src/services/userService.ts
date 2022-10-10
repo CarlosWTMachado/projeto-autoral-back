@@ -10,7 +10,14 @@ export async function findByEmail(email: string) {
 	return await userRepository.findByEmail(email);
 }
 
+export async function get(id: number) {
+	const userData = await userRepository.findAllById(id);
+	if (userData === null) throw error.notFoundError('User not found');
+	return userData;
+}
+
 export default {
 	create,
 	findByEmail,
+	get,
 }

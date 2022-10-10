@@ -15,7 +15,30 @@ export async function findByEmail(email: string) {
 	});
 }
 
+export async function findAllById(id: number) {
+	return await prisma.user.findUnique({
+		where: {
+			id
+		},
+		select: {
+			id: true,
+			email: true,
+			fullName: true,
+			address: {
+				select: {
+					id: true,
+					number: true,
+					complement: true,
+					cep: true
+				}
+			},
+			phones: true
+		}
+	});
+}
+
 export default {
 	create,
 	findByEmail,
+	findAllById,
 }
