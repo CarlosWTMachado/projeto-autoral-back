@@ -80,7 +80,7 @@ model Walker {
 model AvailableWalk {
     id          Int          @id(map: "availableWalks_pk") @default(autoincrement())
     completed   Boolean      @default(false)
-    petId       Int          @unique
+    petId       Int          
     pet         Pet          @relation(fields: [petId], references: [id], onDelete: Cascade)
     OnGoingWalk OnGoingWalk[]
 
