@@ -28,8 +28,15 @@ export async function create(petId: number) {
 	});
 }
 
+export async function acceptWalk(walkerId: number, availableWalkId: number) {
+	return await prisma.onGoingWalk.create({
+		data: { walkerId, availableWalkId }
+	});
+}
+
 export default {
 	findAll,
 	findAllCompleted,
 	create,
+	acceptWalk,
 }

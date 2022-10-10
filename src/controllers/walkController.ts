@@ -20,8 +20,16 @@ export async function create(req: Request, res: Response) {
 	return res.sendStatus(201);
 }
 
+export async function acceptWalk(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const { walkId } = req.params;
+	await walkService.acceptWalk(tokenData.id, Number(walkId));
+	return res.sendStatus(201);
+}
+
 export default {
 	get,
 	getCompleted,
 	create,
+	acceptWalk,
 }

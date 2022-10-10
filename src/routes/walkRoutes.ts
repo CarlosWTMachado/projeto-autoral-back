@@ -9,5 +9,6 @@ const walkRouter = Router();
 walkRouter.post('/walk', validateToken, schemaValidate(walkSchema), walkController.create);
 walkRouter.get('/walks', validateToken, walkController.get);
 walkRouter.get('/completedWalks', validateToken, walkController.getCompleted);
+walkRouter.post('/accept/walk/:walkId', validateToken, walkController.acceptWalk);
 
 export default walkRouter;

@@ -20,8 +20,15 @@ export async function create(id: number, petId: number) {
 	return;
 }
 
+export async function acceptWalk(id: number, walkId: number) {
+	const walker = await walkerService.getByUserId(id);
+	await walkRepository.acceptWalk(walker.id, walkId)
+	return;
+}
+
 export default {
 	getAllAvailable,
 	getAllCompleted,
 	create,
+	acceptWalk,
 }
