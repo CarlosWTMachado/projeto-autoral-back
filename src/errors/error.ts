@@ -57,6 +57,10 @@ export function notModifiedError(message: string = '') {
 	return new Error('NotModified', message);
 }
 
+export function invalidTokenError(message: string = '') {
+	return new Error('invalidToken', message);
+}
+
 export function errorTypeToStatusCode(type: string): number {
 	switch (type) {
 		case 'NotModified': return 304;
@@ -65,6 +69,7 @@ export function errorTypeToStatusCode(type: string): number {
 		case 'NotFound': return 404;
 		case 'NotAcceptable': return 406;
 		case 'Conflict': return 409;
+		case 'invalidToken': return 498;
 		case 'InternalError': return 500;
 		default: return 0;
 	}
@@ -78,4 +83,5 @@ export default {
 	conflictError,
 	internalError,
 	notModifiedError,
+	invalidTokenError,
 }

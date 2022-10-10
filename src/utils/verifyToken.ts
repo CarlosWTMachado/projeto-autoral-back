@@ -7,6 +7,6 @@ export default function VerifyToken(token: string) {
 		const dados = jwt.verify(token, env.GetJWTSecret());
 		return dados;
 	} catch (e) {
-		throw error.unauthorizedError('Invalid Token');
+		throw error.invalidTokenError('Token invalid or expired');
 	}
 }
