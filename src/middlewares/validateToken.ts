@@ -8,7 +8,7 @@ export default function validateToken(req: Request, res: Response, next: NextFun
 	if (authorization === undefined || authorization === '') throw error.badRequestError('Token missing');
 
 	const validate = tokenSchema.validate({ authorization });
-	if (validate.error) throw error.unauthorizedError('Invalid token');
+	if (validate.error) throw error.invalidTokenError('Token invalid or expired');
 
 	const token = authorization.replace('Bearer ', '');
 	const data = VerifyToken(token);

@@ -53,13 +53,23 @@ export function internalError(message: string = 'Internal Error') {
 	return new Error('InternalError', message);
 }
 
+export function notModifiedError(message: string = '') {
+	return new Error('NotModified', message);
+}
+
+export function invalidTokenError(message: string = '') {
+	return new Error('invalidToken', message);
+}
+
 export function errorTypeToStatusCode(type: string): number {
 	switch (type) {
+		case 'NotModified': return 304;
 		case 'BadRequest': return 400;
 		case 'Unauthorized': return 401;
 		case 'NotFound': return 404;
 		case 'NotAcceptable': return 406;
 		case 'Conflict': return 409;
+		case 'invalidToken': return 498;
 		case 'InternalError': return 500;
 		default: return 0;
 	}
@@ -72,4 +82,6 @@ export default {
 	notAcceptableError,
 	conflictError,
 	internalError,
+	notModifiedError,
+	invalidTokenError,
 }
