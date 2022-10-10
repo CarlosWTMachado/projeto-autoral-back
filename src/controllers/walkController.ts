@@ -34,10 +34,17 @@ export async function completeWalk(req: Request, res: Response) {
 	return res.sendStatus(200);
 }
 
+export async function getOngoingWalks(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const ongoingWalks = await walkService.getOngoingWalks(tokenData.id);
+	return res.status(200).send(ongoingWalks);
+}
+
 export default {
 	get,
 	getCompleted,
 	create,
 	acceptWalk,
 	completeWalk,
+	getOngoingWalks,
 }

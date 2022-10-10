@@ -29,6 +29,15 @@ export async function findAllCompleted(walkerId: number) {
 	`;
 }
 
+export async function findAllOngoingWalks(walkerId: number) {
+	return await prisma.onGoingWalk.findMany({
+		include: {
+			availableWalk: true
+		},
+		where: { walkerId, availableWalk: { completed: false } }
+	})
+}
+
 export async function create(petId: number) {
 	return await prisma.availableWalk.create({
 		data: { petId }
@@ -55,4 +64,5 @@ export default {
 	acceptWalk,
 	findById,
 	completeWalk,
+	findAllOngoingWalks,
 }

@@ -35,10 +35,17 @@ export async function completeWalk(id: number, walkId: number) {
 	return;
 }
 
+export async function getOngoingWalks(id: number) {
+	const walker = await walkerService.getByUserId(id);
+	const ongoingWalks = await walkRepository.findAllOngoingWalks(walker.id);
+	return ongoingWalks;
+}
+
 export default {
 	getAllAvailable,
 	getAllCompleted,
 	create,
 	acceptWalk,
 	completeWalk,
+	getOngoingWalks,
 }
