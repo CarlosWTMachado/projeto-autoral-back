@@ -26,9 +26,19 @@ export async function acceptWalk(id: number, walkId: number) {
 	return;
 }
 
+export async function completeWalk(id: number, walkId: number) {
+	await walkerService.getByUserId(id);
+	const ongoingWalk = await walkRepository.findById(id, walkId);
+	if (ongoingWalk === null) throw error.notFoundError('ongoing walk not found');
+	if (ongoingWalk.availableWalk.completed) throw error.notModifiedError('This walk is alredy completed');
+	await walkRepository.completeWalk(walkId);
+	return;
+}
+
 export default {
 	getAllAvailable,
 	getAllCompleted,
 	create,
 	acceptWalk,
+	completeWalk,
 }

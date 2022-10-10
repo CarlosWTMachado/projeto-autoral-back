@@ -94,5 +94,6 @@ model OnGoingWalk {
     availableWalk   AvailableWalk @relation(fields: [availableWalkId], references: [id], onDelete: Cascade)
     walker          Walker        @relation(fields: [walkerId], references: [id], onDelete: Cascade)
 
+	@@unique([walkerId, availableWalkId], name: "walkerId_walkId")
     @@map("onGoingWalks")
 }

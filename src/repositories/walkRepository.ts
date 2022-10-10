@@ -7,6 +7,13 @@ export async function findAll() {
 	});
 }
 
+export async function findById(walkerId: number, availableWalkId: number) {
+	return await prisma.onGoingWalk.findUnique({
+		where: { walkerId_walkId: { walkerId, availableWalkId } },
+		include: { availableWalk: true }
+	});
+}
+
 export async function findAllCompleted(walkerId: number) {
 	return await prisma.$queryRaw<completedWalksInterface>`
 		SELECT 
@@ -34,9 +41,18 @@ export async function acceptWalk(walkerId: number, availableWalkId: number) {
 	});
 }
 
+export async function completeWalk(id: number) {
+	return await prisma.availableWalk.update({
+		data: { completed: true },
+		where: { id }
+	});
+}
+
 export default {
 	findAll,
 	findAllCompleted,
 	create,
 	acceptWalk,
+	findById,
+	completeWalk,
 }

@@ -53,8 +53,13 @@ export function internalError(message: string = 'Internal Error') {
 	return new Error('InternalError', message);
 }
 
+export function notModifiedError(message: string = '') {
+	return new Error('NotModified', message);
+}
+
 export function errorTypeToStatusCode(type: string): number {
 	switch (type) {
+		case 'NotModified': return 304;
 		case 'BadRequest': return 400;
 		case 'Unauthorized': return 401;
 		case 'NotFound': return 404;
@@ -72,4 +77,5 @@ export default {
 	notAcceptableError,
 	conflictError,
 	internalError,
+	notModifiedError,
 }
