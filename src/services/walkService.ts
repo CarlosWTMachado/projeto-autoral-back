@@ -2,10 +2,24 @@ import error from "../errors/error";
 import walkRepository from "../repositories/walkRepository";
 import walkerService from "./walkerService";
 import petService from "./petService";
+import getCepData from "../utils/getCepData";
+import userRepository from "../repositories/userRepository";
 
-export async function getAllAvailable() {
+export async function getAllAvailable(id: number) {
+	const userCep = await userRepository.findCep(id);
+	if (userCep === null) throw error.badRequestError();
+	const userCity = await getCepData(userCep.address.cep.number);
 	const availableWalks = await walkRepository.findAll();
-	return availableWalks;
+	const availableWalksCity = await Promise.all(
+		availableWalks.map(async (value) => {
+			const city = await getCepData(value.pet.owner.address.cep.number);
+			return { ...value, city };
+		})
+	);
+	const result = availableWalksCity.filter((value) => {
+		return value.city === userCity;
+	});
+	return result;
 }
 
 export async function getAllCompleted(id: number) {
