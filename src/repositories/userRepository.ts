@@ -37,8 +37,24 @@ export async function findAllById(id: number) {
 	});
 }
 
+export async function findCep(id: number) {
+	return await prisma.user.findUnique({
+		where: {
+			id
+		},
+		select: {
+			address: {
+				select: {
+					cep: true
+				}
+			}
+		}
+	});
+}
+
 export default {
 	create,
 	findByEmail,
 	findAllById,
+	findCep,
 }

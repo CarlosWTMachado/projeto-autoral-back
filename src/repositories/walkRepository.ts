@@ -3,7 +3,22 @@ import { completedWalksInterface } from "../types/walkInterface";
 
 export async function findAll() {
 	return await prisma.availableWalk.findMany({
-		where: { completed: false }
+		where: { completed: false },
+		include: {
+			pet: {
+				include: {
+					owner: {
+						include: {
+							address: {
+								include: {
+									cep: true
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	});
 }
 
