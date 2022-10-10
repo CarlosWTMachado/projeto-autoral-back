@@ -16,7 +16,14 @@ export async function get(id: number) {
 	return walkerFound;
 }
 
+export async function getByUserId(userId: number) {
+	const walkerFound = await walkerRepository.findByUserId(userId);
+	if (walkerFound === null) throw error.notFoundError('User is not a walker');
+	return walkerFound;
+}
+
 export default {
 	create,
 	get,
+	getByUserId,
 }

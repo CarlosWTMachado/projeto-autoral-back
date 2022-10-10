@@ -13,7 +13,15 @@ export async function getCompleted(req: Request, res: Response) {
 	return res.status(200).send(completedWalks);
 }
 
+export async function create(req: Request, res: Response) {
+	const tokenData: tokenDataInterface = res.locals.tokenData;
+	const { petId }: { petId: number } = req.body;
+	await walkService.create(tokenData.id, petId);
+	return res.sendStatus(201);
+}
+
 export default {
 	get,
 	getCompleted,
+	create,
 }

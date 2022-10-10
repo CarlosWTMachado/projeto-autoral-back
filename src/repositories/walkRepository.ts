@@ -22,7 +22,14 @@ export async function findAllCompleted(walkerId: number) {
 	`;
 }
 
+export async function create(petId: number) {
+	return await prisma.availableWalk.create({
+		data: { petId }
+	});
+}
+
 export default {
 	findAll,
 	findAllCompleted,
+	create,
 }
